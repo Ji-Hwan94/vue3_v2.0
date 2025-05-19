@@ -1,6 +1,6 @@
-import Login from '@/views/Login.vue';
+import Login from '@/views/Auth/Login.vue';
+import DashBoard from '@/views/DashBoard/DashBoard.vue';
 import NotFound from '@/views/NotFound/NotFound.vue';
-import Notice from '@/views/Support/Notice.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -17,18 +17,8 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: '/react',
-      children: [
-        {
-          path: 'support',
-          children: [
-            {
-              path: 'notice',
-              component: Notice,
-            },
-          ],
-        },
-      ],
+      path: '/vue',
+      component: DashBoard,
     },
   ],
 });

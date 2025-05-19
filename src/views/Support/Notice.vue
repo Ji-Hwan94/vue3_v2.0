@@ -1,6 +1,2 @@
-<template>
-  <NoticeSearch />
-</template>
-<script setup>
-import NoticeSearch from '@/components/Support/Notice/NoticeSearch/NoticeSearch.vue';
-</script>
+<template>공지사항</template>
+<script setup></script>

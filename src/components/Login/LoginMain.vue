@@ -1,6 +1,29 @@
 <script setup>
 import logo from '@/assets/logo_img.png';
-import './styled.css';
+import { ref } from 'vue';
+import { useUserInfo } from '@/stores/loginInfoState';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+
+const loginInfo = ref({});
+const { setUserData } = useUserInfo();
+const router = useRouter();
+
+const handlerLogin = () => {
+  const param = new URLSearchParams(loginInfo.value);
+
+  axios.post('/api/loginProc.do', param).then((res) => {
+    const data = res.data;
+    if (data.result === 'SUCCESS') {
+      sessionStorage.setItem('userInfo', JSON.stringify(data));
+      setUserData(data);
+      router.push('/vue');
+    } else {
+      alert('아이디 혹은 비밀번호가 일치하지 않아요');
+      return;
+    }
+  });
+};
 </script>
 
 <template>
@@ -26,17 +49,21 @@ import './styled.css';
       <div class="buttons inputs">
         <div>
           <label> 아이디 </label>
-          <input required />
+          <input v-model="loginInfo.lgn_Id" required />
         </div>
         <div>
           <label> 비밀번호 </label>
-          <input required type="password" />
+          <input v-model="loginInfo.pwd" required type="password" />
         </div>
         <div>
-          <button class="login-button">Login</button>
+          <button class="login-button" @click="handlerLogin">Login</button>
           <button class="signup-button">Sign Up</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="css">
+@import './styled.css';
+</style>
